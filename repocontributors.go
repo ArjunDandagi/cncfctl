@@ -12,7 +12,7 @@ import (
 )
 
 // given a github URL return all the github username that are contributors
-func repoContributors(project string, url string) ([]string, error) {
+func repoContributors(project string, url string) (RepoContributors, error) {
 	ctx := context.Background()
 
 	token := os.Getenv("GITHUB_TOKEN")
@@ -34,7 +34,7 @@ func repoContributors(project string, url string) ([]string, error) {
 	var contributorsList []string
 	gitURL, err := giturl.NewGitURL(url)
 	if err != nil {
-		return nil, err
+		return RepoContributors{}, err
 	}
 	owner, repo := gitURL.GetOwnerName(), gitURL.GetRepoName()
 
@@ -56,6 +56,6 @@ func repoContributors(project string, url string) ([]string, error) {
 		opt.Page = resp.NextPage // Move to the next page.
 	}
 
-	return contributorsList, nil
+	return RepoContributors{Name: project, Contributors: contributorsList}, nil
 	//close(contributorchannel)
 }

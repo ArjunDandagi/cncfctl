@@ -7,6 +7,11 @@ import (
 	intersect "github.com/juliangruber/go-intersect"
 )
 
+type RepoContributors struct {
+	Name         string   `json:"name"`
+	Contributors []string `json:"contributors"`
+}
+
 func main() {
 
 	channel := make(chan []Project)
@@ -15,7 +20,7 @@ func main() {
 	cncfProjects := <-channel
 	go orgUsers(orguserchannel)
 	orgusers := <-orguserchannel
-	contributorsCh := make(chan []string)
+	contributorsCh := make(chan RepoContributors)
 
 	var wg sync.WaitGroup
 	for _, project := range cncfProjects {
@@ -42,9 +47,9 @@ func main() {
 	}()
 
 	for contributor := range contributorsCh {
-		contributors_from_org := intersect.Simple(orgusers, contributor)
+		contributors_from_org := intersect.Simple(orgusers, contributor.Contributors)
 		if len(contributors_from_org) > 0 {
-			fmt.Printf("%v\n", contributors_from_org)
+			fmt.Printf("%v\n\t%v\n", contributor.Name, contributors_from_org)
 		}
 	}
 
