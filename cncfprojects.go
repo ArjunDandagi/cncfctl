@@ -12,7 +12,7 @@ type Project struct {
 	Repo string `json:"repo_url"`
 }
 
-func cncfProjects() []Project {
+func cncfProjects(c chan []Project) {
 	// Retrieve the list of CNCF projects from the Landscape API.
 	resp, err := http.Get("https://landscape.cncf.io/data/items.json")
 	if err != nil {
@@ -31,5 +31,6 @@ func cncfProjects() []Project {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return cncfProjects
+	c <- cncfProjects
+	close(c)
 }

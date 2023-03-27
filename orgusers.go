@@ -9,7 +9,7 @@ import (
 	"golang.org/x/oauth2"
 )
 
-func orgUsers() []string {
+func orgUsers(orguserchannel chan []string) {
 	ctx := context.Background()
 
 	token := os.Getenv("GITHUB_TOKEN")
@@ -49,5 +49,6 @@ func orgUsers() []string {
 		opt.Page = resp.NextPage // Move to the next page.
 	}
 
-	return userslice
+	orguserchannel <- userslice
+	close(orguserchannel)
 }
