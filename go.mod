@@ -1,4 +1,4 @@
-module github.com/arjundandagi/org-opensource-contributors
+module github.com/arjundandagi/cncfs
 
 go 1.20
 
