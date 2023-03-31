@@ -23,9 +23,9 @@ brew install cncfctl
 
 ## Usage:
 
-You just have to set 2 environment variables
-your Github Token 
-The company username in github you want to search for
+You just have to set 2 environment variables. 
+- your Github Token.  
+- The company username in github you want to search for.   
 for example: `sumup` for sumup because it exists as https://github.com/sumup
 
 ```bash 
