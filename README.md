@@ -4,6 +4,7 @@ like kubectl but for CNCF landscape :wink:
 
 ## what is CNCFctl
 
+`cncfctl` is a cli tool to that allows you to quickly and easily discover which developers from your company are contributing to projects within the Cloud Native Computing Foundation (CNCF).  
 
 ## Installation
 
