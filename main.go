@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"sync"
 
-	intersect "github.com/juliangruber/go-intersect"
+	"github.com/juliangruber/go-intersect"
 )
 
 type RepoContributors struct {
@@ -45,12 +44,12 @@ func main() {
 		wg.Wait()
 		close(contributorsCh)
 	}()
-
+	var table_input []RepoContributors
 	for contributor := range contributorsCh {
 		contributors_from_org := intersect.Simple(orgusers, contributor.Contributors)
 		if len(contributors_from_org) > 0 {
-			fmt.Printf("%v\n\t%v\n", contributor.Name, contributors_from_org)
+			table_input = append(table_input, RepoContributors{contributor.Name, convertToStringSlice(contributors_from_org)})
 		}
 	}
-
+	customtable(table_input)
 }

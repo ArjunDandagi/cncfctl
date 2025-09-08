@@ -42,6 +42,7 @@ func repoContributors(project string, url string) (RepoContributors, error) {
 		contributors, resp, err := client.Repositories.ListContributors(ctx, owner, repo, opt)
 		if err != nil {
 			fmt.Printf("something wrong with %v/%v\n", owner, repo)
+			fmt.Println(err)
 			break
 		}
 
